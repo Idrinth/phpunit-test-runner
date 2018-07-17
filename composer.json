@@ -1,0 +1,23 @@
+{
+    "name": "idrinth/phpunit-test-runner",
+    "description": "A very simple Proof of Concept for the proposed new runner logic",
+    "authors": [
+        {
+            "name": "Björn Büttner",
+            "homepage": "https://github.com/idrinth"
+        }
+    ],
+    "require": {
+        "roave/better-reflection":"^3"
+    },
+    "autoload": {
+        "psr-4": {
+            "PHPUnit\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PHPUnitExamples\\": "test"
+        }
+    }
+}
