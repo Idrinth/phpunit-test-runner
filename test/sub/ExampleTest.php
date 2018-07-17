@@ -2,8 +2,12 @@
 
 namespace PHPUnitExamples\sub;
 
+use Generator;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @group three
+ */
 class ExampleTest extends TestCase
 {
     public function testA(): void
@@ -18,7 +22,7 @@ class ExampleTest extends TestCase
         echo json_encode(func_get_args());
         return 17;
     }
-    public function c()
+    public function c(): void
     {
     }
     /**
@@ -38,7 +42,7 @@ class ExampleTest extends TestCase
     {
         echo json_encode(func_get_args());
     }
-    public function f()
+    public function f(): Generator
     {
         yield "example" => [100, 200];
         yield 1 => [101, 201];
@@ -52,7 +56,7 @@ class ExampleTest extends TestCase
      *           [8,9]
      *           [19,21]
      */
-    public function g($b, $c)
+    public function g($b, $c): void
     {
         echo json_encode(func_get_args());
     }
@@ -64,8 +68,10 @@ class ExampleTest extends TestCase
     }
     /**
      * @test
+     * @group seven
      * @dataProvider f
      * @dataProvider h
+     * @dataProvider k
      * @testWith [1,2]
      *           [8,9]
      *           [19,21]
@@ -77,7 +83,38 @@ class ExampleTest extends TestCase
     {
         echo json_encode(func_get_args());
     }
-    private function testJ()
+    private function testJ(): void
     {
+    }
+    public function k(): Generator
+    {
+        for($i=0;$i<100;$i++) {
+            yield [$i, implode(".", array_fill(0, $i*$i, $i))];
+        }
+    }
+    /**
+     * @group one
+     * @test
+     */
+    public function l(): void
+    {
+        echo json_encode(func_get_args());
+    }
+    /**
+     * @group one
+     * @group two
+     * @test
+     */
+    public function m(): void
+    {
+        echo json_encode(func_get_args());
+    }
+    /**
+     * @group two
+     * @test
+     */
+    public function n(): void
+    {
+        echo json_encode(func_get_args());
     }
 }

@@ -13,9 +13,11 @@ use Traversable;
 class TestMethod implements IteratorAggregate
 {
     private $classes;
-    public function __construct(TestClass $classes)
+    private $filters;
+    public function __construct(TestClass $classes, Filter $filters)
     {
         $this->classes = $classes;
+        $this->filters = $filters;
     }
 
     /**
@@ -35,13 +37,16 @@ class TestMethod implements IteratorAggregate
                 if (!$this->isTestMethod($method, $methodAnnotations)) {
                     continue;
                 }
-                yield new TestMethodDTO(
+                $methodDTO = new TestMethodDTO(
                     $file,
                     $className,
                     $method->getName(),
                     $classLevelAnnotations,
                     $methodAnnotations
                 );
+                if ($this->filters->allowed($methodDTO)) {
+                    yield $methodDTO;
+                }
             }
         }
     }
